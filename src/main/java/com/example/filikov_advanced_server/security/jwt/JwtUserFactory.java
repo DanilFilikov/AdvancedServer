@@ -11,5 +11,4 @@ public final class JwtUserFactory {
                         userEntity.getAvatar(),
                         userEntity.getRole());
     }
-
 }

@@ -31,9 +31,6 @@ public enum ErrorCodes {
     EMAIL_SIZE_NOT_VALID(3, ValidationConstants.EMAIL_SIZE_NOT_VALID),
     USER_NAME_HAS_TO_BE_PRESENT(43, ValidationConstants.USERNAME_HAS_TO_BE_PRESENT);
 
-
-
-
     private final int code;
     private final String errorText;
 
