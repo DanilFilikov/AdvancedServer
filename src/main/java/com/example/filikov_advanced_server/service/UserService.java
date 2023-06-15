@@ -8,4 +8,5 @@ import com.example.filikov_advanced_server.responses.CustomSuccessResponse;
 public interface UserService{
     public CustomSuccessResponse<LoginUserDto> registerUser(RegisterUserDto userDto);
     public CustomSuccessResponse<LoginUserDto> loginUser(AuthDto userDto);
+
 }
