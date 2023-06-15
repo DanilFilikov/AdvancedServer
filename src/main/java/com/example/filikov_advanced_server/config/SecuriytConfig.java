@@ -14,10 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @AllArgsConstructor
-public class SecuriytConfig extends WebSecurityConfigurerAdapter {
+public class SecuriytConfig extends WebSecurityConfigurerAdapter implements EndPoints{
 
     private final JwtTokenProvider jwtTokenProvider;
-    private static final String LOGIN_ENDPOINT = "/auth/**";
 
     @Bean
     @Override
@@ -37,7 +36,7 @@ public class SecuriytConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers(LOGIN_ENDPOINT).permitAll()
+                .antMatchers(LOGIN_ENDPOINT, USER_ENDPOINT).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));

@@ -2,6 +2,7 @@ package com.example.filikov_advanced_server.impl;
 
 import com.example.filikov_advanced_server.dto.AuthDto;
 import com.example.filikov_advanced_server.dto.LoginUserDto;
+import com.example.filikov_advanced_server.dto.PublicUserView;
 import com.example.filikov_advanced_server.dto.RegisterUserDto;
 import com.example.filikov_advanced_server.entity.UserEntity;
 import com.example.filikov_advanced_server.error.ValidationConstants;
@@ -15,6 +16,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -53,5 +56,11 @@ public class UserServiceImpl implements UserService {
         response.setToken(token);
 
         return CustomSuccessResponse.getSuccessResponse(response);
+    }
+
+    @Override
+    public CustomSuccessResponse<List<PublicUserView>> getUsers(){
+        List<PublicUserView> users = userRepo.findAll().stream().map(UserMapper.INSTANCE::entityToPublicUserView).toList();
+        return CustomSuccessResponse.getSuccessResponse(users);
     }
 }
