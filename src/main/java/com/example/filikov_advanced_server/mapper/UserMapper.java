@@ -3,6 +3,7 @@ package com.example.filikov_advanced_server.mapper;
 
 import com.example.filikov_advanced_server.dto.AuthDto;
 import com.example.filikov_advanced_server.dto.LoginUserDto;
+import com.example.filikov_advanced_server.dto.PublicUserView;
 import com.example.filikov_advanced_server.dto.RegisterUserDto;
 import com.example.filikov_advanced_server.entity.UserEntity;
 import org.mapstruct.Mapper;
@@ -36,4 +37,10 @@ public interface UserMapper {
     @Mapping(target = "password", source = "password")
     UserEntity authDtoToEntity(AuthDto authDto);
 
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "role", source = "role")
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "email", source = "email")
+    @Mapping(target = "avatar", source = "avatar")
+    PublicUserView entityToPublicUserView(UserEntity userEntity);
 }

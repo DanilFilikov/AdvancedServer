@@ -2,6 +2,7 @@ package com.example.filikov_advanced_server.impl;
 
 import com.example.filikov_advanced_server.dto.AuthDto;
 import com.example.filikov_advanced_server.dto.LoginUserDto;
+import com.example.filikov_advanced_server.dto.PublicUserView;
 import com.example.filikov_advanced_server.dto.RegisterUserDto;
 import com.example.filikov_advanced_server.entity.UserEntity;
 import com.example.filikov_advanced_server.error.ValidationConstants;
@@ -16,43 +17,20 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
-    private final BCryptPasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public CustomSuccessResponse<LoginUserDto> registerUser(RegisterUserDto userDto) {
-        if(userRepo.existsByEmail(userDto.getEmail())) {
-           throw new CustomException(ValidationConstants.USER_ALREADY_EXISTS);
-        }
-        UserEntity userEntity = UserMapper.INSTANCE.registerDtoToEntity(userDto);
-        userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        LoginUserDto response = UserMapper.INSTANCE.entityToLoginUserDto(userEntity);
-        userRepo.save(userEntity);
-        String token = jwtTokenProvider.createToken(userDto.getEmail());
-        response.setToken(token);
-        return CustomSuccessResponse.getSuccessResponse(response);
-    }
-
-    @Override
-    public CustomSuccessResponse<LoginUserDto> loginUser(AuthDto authDto){
-        if(!userRepo.existsByEmail(authDto.getEmail())) {
-            throw new CustomException(ValidationConstants.USER_NOT_FOUND);
-        }
-        if(!passwordEncoder.matches(authDto.getPassword(), userRepo.findByEmail(authDto.getEmail()).get().getPassword())) {
-            throw new CustomException(ValidationConstants.PASSWORD_NOT_VALID);
-        }
-        UserEntity userEntity = UserMapper.INSTANCE.authDtoToEntity(authDto);
-        LoginUserDto response = UserMapper.INSTANCE.entityToLoginUserDto(userEntity);
-        String token = jwtTokenProvider.createToken(authDto.getEmail());
-        response.setToken(token);
-
-        return CustomSuccessResponse.getSuccessResponse(response);
+    public CustomSuccessResponse<List<PublicUserView>> getUsers(){
+        List<PublicUserView> users = userRepo.findAll().stream()
+                .map(UserMapper.INSTANCE::entityToPublicUserView)
+                .toList();
+        return CustomSuccessResponse.getSuccessResponse(users);
     }
 
 }
