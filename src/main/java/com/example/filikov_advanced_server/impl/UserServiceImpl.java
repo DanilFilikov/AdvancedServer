@@ -32,4 +32,5 @@ public class UserServiceImpl implements UserService {
                 .toList();
         return CustomSuccessResponse.getSuccessResponse(users);
     }
+
 }
