@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
             throw new CustomException(ValidationConstants.USER_NOT_FOUND);
         }
         if(!passwordEncoder.matches(authDto.getPassword(), userRepo.findByEmail(authDto.getEmail()).get().getPassword())) {
-            throw new CustomException(ValidationConstants.USER_NOT_FOUND);
+            throw new CustomException(ValidationConstants.PASSWORD_NOT_VALID);
         }
         UserEntity userEntity = UserMapper.INSTANCE.authDtoToEntity(authDto);
         LoginUserDto response = UserMapper.INSTANCE.entityToLoginUserDto(userEntity);
