@@ -29,11 +29,6 @@ public class JwtTokenProvider {
 
     private final UserDetailsService userDetailsService;
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
     public String createToken(String email){
 
         Claims claims = Jwts.claims().setSubject(email);
