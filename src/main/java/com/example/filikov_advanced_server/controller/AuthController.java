@@ -1,6 +1,7 @@
 package com.example.filikov_advanced_server.controller;
 
 import com.example.filikov_advanced_server.dto.RegisterUserDto;
+import com.example.filikov_advanced_server.dto.AuthDto;
 import com.example.filikov_advanced_server.service.UserService;
 import lombok.AllArgsConstructor;
 
@@ -25,4 +26,10 @@ public class AuthController {
     public ResponseEntity registerUser(@Valid @RequestBody RegisterUserDto userDto){
         return ResponseEntity.ok(userService.registerUser(userDto));
     }
+
+    @PostMapping("/login")
+    public ResponseEntity login(@Valid @RequestBody AuthDto authDto){
+        return ResponseEntity.ok(userService.loginUser(authDto));
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.example.filikov_advanced_server.mapper;
 
+
+import com.example.filikov_advanced_server.dto.AuthDto;
 import com.example.filikov_advanced_server.dto.LoginUserDto;
 import com.example.filikov_advanced_server.dto.RegisterUserDto;
 import com.example.filikov_advanced_server.entity.UserEntity;
@@ -25,5 +27,13 @@ public interface UserMapper {
     @Mapping(target = "email", source = "email")
     @Mapping(target = "avatar", source = "avatar")
     LoginUserDto entityToLoginUserDto(UserEntity userEntity);
+
+    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "name", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "avatar", ignore = true)
+    @Mapping(target = "email", source = "email")
+    @Mapping(target = "password", source = "password")
+    UserEntity authDtoToEntity(AuthDto authDto);
 
 }

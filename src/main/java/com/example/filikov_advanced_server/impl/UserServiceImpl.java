@@ -1,5 +1,6 @@
 package com.example.filikov_advanced_server.impl;
 
+import com.example.filikov_advanced_server.dto.AuthDto;
 import com.example.filikov_advanced_server.dto.LoginUserDto;
 import com.example.filikov_advanced_server.dto.RegisterUserDto;
 import com.example.filikov_advanced_server.entity.UserEntity;
@@ -37,4 +38,21 @@ public class UserServiceImpl implements UserService {
         response.setToken(token);
         return CustomSuccessResponse.getSuccessResponse(response);
     }
+
+    @Override
+    public CustomSuccessResponse<LoginUserDto> loginUser(AuthDto authDto){
+        if(!userRepo.existsByEmail(authDto.getEmail())) {
+            throw new CustomException(ValidationConstants.USER_NOT_FOUND);
+        }
+        if(!passwordEncoder.matches(authDto.getPassword(), userRepo.findByEmail(authDto.getEmail()).get().getPassword())) {
+            throw new CustomException(ValidationConstants.PASSWORD_NOT_VALID);
+        }
+        UserEntity userEntity = UserMapper.INSTANCE.authDtoToEntity(authDto);
+        LoginUserDto response = UserMapper.INSTANCE.entityToLoginUserDto(userEntity);
+        String token = jwtTokenProvider.createToken(authDto.getEmail());
+        response.setToken(token);
+
+        return CustomSuccessResponse.getSuccessResponse(response);
+    }
+
 }
