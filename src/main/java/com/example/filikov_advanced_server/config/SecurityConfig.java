@@ -12,9 +12,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import static com.example.filikov_advanced_server.config.EndPoints.LOGIN_ENDPOINT;
+import static com.example.filikov_advanced_server.config.EndPoints.USER_ENDPOINT;
+
 @Configuration
 @AllArgsConstructor
-public class SecuriytConfig extends WebSecurityConfigurerAdapter implements EndPoints{
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     private final JwtTokenProvider jwtTokenProvider;
 

@@ -2,6 +2,7 @@ package com.example.filikov_advanced_server.controller;
 
 import com.example.filikov_advanced_server.dto.RegisterUserDto;
 import com.example.filikov_advanced_server.dto.AuthDto;
+import com.example.filikov_advanced_server.service.AuthService;
 import com.example.filikov_advanced_server.service.UserService;
 import lombok.AllArgsConstructor;
 
@@ -20,15 +21,15 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class AuthController {
 
-    private final UserService userService;
+    private final AuthService authService;
 
     @PostMapping("/register")
     public ResponseEntity registerUser(@Valid @RequestBody RegisterUserDto userDto){
-        return ResponseEntity.ok(userService.registerUser(userDto));
+        return ResponseEntity.ok(authService.registerUser(userDto));
     }
 
     @PostMapping("/login")
     public ResponseEntity login(@Valid @RequestBody AuthDto authDto){
-        return ResponseEntity.ok(userService.loginUser(authDto));
+        return ResponseEntity.ok(authService.loginUser(authDto));
     }
 }

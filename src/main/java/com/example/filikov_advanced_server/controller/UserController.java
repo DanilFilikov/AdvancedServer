@@ -2,7 +2,6 @@ package com.example.filikov_advanced_server.controller;
 
 import com.example.filikov_advanced_server.service.UserService;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class UserController {
 
-    UserService userService;
+    private final UserService userService;
 
     @GetMapping
-    public ResponseEntity getUser(){
+    public ResponseEntity getUsers(){
         return ResponseEntity.ok(userService.getUsers());
     }
 }
