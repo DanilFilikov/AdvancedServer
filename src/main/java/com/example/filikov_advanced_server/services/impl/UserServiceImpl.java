@@ -4,11 +4,9 @@ import com.example.filikov_advanced_server.dto.PublicUserView;
 import com.example.filikov_advanced_server.error.ValidationConstants;
 import com.example.filikov_advanced_server.exception.CustomException;
 import com.example.filikov_advanced_server.mapper.UserMapper;
-import com.example.filikov_advanced_server.responses.BaseSuccessResponse;
 import com.example.filikov_advanced_server.responses.CustomSuccessResponse;
 import com.example.filikov_advanced_server.repository.UserRepo;
 import com.example.filikov_advanced_server.services.UserService;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.AllArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -41,11 +39,5 @@ public class UserServiceImpl implements UserService {
     public CustomSuccessResponse<PublicUserView> getUserInfo(UUID id){
         PublicUserView response = UserMapper.INSTANCE.entityToPublicUserView(userRepo.findById(id).get());
         return CustomSuccessResponse.getSuccessResponse(response);
-    }
-
-    @Override
-    public BaseSuccessResponse deleteUser(UUID id){
-        userRepo.delete(userRepo.findById(id).get());
-        return BaseSuccessResponse.getSuccessResponse();
     }
 }
