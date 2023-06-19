@@ -1,4 +1,4 @@
-package com.example.filikov_advanced_server.impl;
+package com.example.filikov_advanced_server.service.impl;
 
 import com.example.filikov_advanced_server.dto.AuthDto;
 import com.example.filikov_advanced_server.dto.LoginUserDto;
@@ -14,10 +14,12 @@ import com.example.filikov_advanced_server.security.jwt.JwtTokenProvider;
 import com.example.filikov_advanced_server.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -31,5 +33,18 @@ public class UserServiceImpl implements UserService {
                 .map(UserMapper.INSTANCE::entityToPublicUserView)
                 .toList();
         return CustomSuccessResponse.getSuccessResponse(users);
+    }
+
+    @Override
+    public CustomSuccessResponse<PublicUserView> getUserInfoById(UUID id) {
+        PublicUserView response = UserMapper.INSTANCE.entityToPublicUserView(userRepo.findById(id)
+                .orElseThrow(() -> new CustomException(ValidationConstants.USER_NOT_FOUND)));
+        return CustomSuccessResponse.getSuccessResponse(response);
+    }
+
+    @Override
+    public CustomSuccessResponse<PublicUserView> getUserInfo(String email){
+        PublicUserView response = UserMapper.INSTANCE.entityToPublicUserView(userRepo.findByEmail(email).get());
+        return CustomSuccessResponse.getSuccessResponse(response);
     }
 }
