@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface UserService{
+  
     public CustomSuccessResponse<List<PublicUserView>> getUsers();
     public CustomSuccessResponse<PublicUserView> getUserInfoById(UUID id);
     public CustomSuccessResponse<PublicUserView> getUserInfo(String email);
+
 }
