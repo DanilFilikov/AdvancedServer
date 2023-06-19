@@ -1,4 +1,4 @@
-package com.example.filikov_advanced_server.service.impl;
+package com.example.filikov_advanced_server.services.impl;
 
 import com.example.filikov_advanced_server.dto.AuthDto;
 import com.example.filikov_advanced_server.dto.LoginUserDto;
@@ -10,13 +10,10 @@ import com.example.filikov_advanced_server.mapper.UserMapper;
 import com.example.filikov_advanced_server.repository.UserRepo;
 import com.example.filikov_advanced_server.responses.CustomSuccessResponse;
 import com.example.filikov_advanced_server.security.jwt.JwtTokenProvider;
-import com.example.filikov_advanced_server.service.AuthService;
+import com.example.filikov_advanced_server.services.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.example.filikov_advanced_server.service;
+package com.example.filikov_advanced_server.services;
 
 import com.example.filikov_advanced_server.dto.PublicUserView;
 import com.example.filikov_advanced_server.responses.CustomSuccessResponse;
