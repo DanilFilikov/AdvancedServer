@@ -2,8 +2,7 @@ package com.example.filikov_advanced_server.controller;
 
 import com.example.filikov_advanced_server.dto.RegisterUserDto;
 import com.example.filikov_advanced_server.dto.AuthDto;
-import com.example.filikov_advanced_server.service.AuthService;
-import com.example.filikov_advanced_server.service.UserService;
+import com.example.filikov_advanced_server.services.AuthService;
 import lombok.AllArgsConstructor;
 
 import org.springframework.http.ResponseEntity;

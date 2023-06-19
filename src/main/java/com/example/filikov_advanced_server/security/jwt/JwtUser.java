@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.UUID;
 
+
 @RequiredArgsConstructor
 public class JwtUser implements UserDetails  {
 
@@ -15,11 +16,15 @@ public class JwtUser implements UserDetails  {
     private final String password;
     private final String email;
     private final String avatar;
-    private final String role;
+    private final Collection<? extends GrantedAuthority> grantedAuthority;
+
+    public UUID getId() {
+        return id;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return grantedAuthority;
     }
 
     @Override
@@ -29,7 +34,7 @@ public class JwtUser implements UserDetails  {
 
     @Override
     public String getUsername() {
-        return name;
+        return id.toString();
     }
 
     @Override
@@ -49,6 +54,6 @@ public class JwtUser implements UserDetails  {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

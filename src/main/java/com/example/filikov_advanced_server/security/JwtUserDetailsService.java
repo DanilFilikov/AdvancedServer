@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {
@@ -19,7 +21,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String uuid) {
-        UserEntity userEntity = userRepo.findByEmail(uuid).orElseThrow(() -> new CustomException(ValidationConstants.USER_NOT_FOUND));
+        UserEntity userEntity = userRepo.findById(UUID.fromString(uuid)).orElseThrow(() -> new CustomException(ValidationConstants.USER_NOT_FOUND));
         return JwtUserFactory.create(userEntity);
     }
 }
