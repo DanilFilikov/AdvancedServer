@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public CustomSuccessResponse<PublicUserView> getUserInfo(String email){
-        PublicUserView response = UserMapper.INSTANCE.entityToPublicUserView(userRepo.findByEmail(email).get());
+    public CustomSuccessResponse<PublicUserView> getUserInfo(UUID id){
+        PublicUserView response = UserMapper.INSTANCE.entityToPublicUserView(userRepo.findById(id).get());
         return CustomSuccessResponse.getSuccessResponse(response);
     }
 }

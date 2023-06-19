@@ -35,7 +35,7 @@ public class AuthServiceImpl implements AuthService {
         userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
         userRepo.save(userEntity);
         LoginUserDto response = UserMapper.INSTANCE.entityToLoginUserDto(userEntity);
-        response.setToken(jwtTokenProvider.createToken(userDto.getEmail()));
+        response.setToken(jwtTokenProvider.createToken(userEntity.getId()));
         return CustomSuccessResponse.getSuccessResponse(response);
     }
 
@@ -49,8 +49,8 @@ public class AuthServiceImpl implements AuthService {
         }
         UserEntity userEntity = userRepo.findByEmail(authDto.getEmail()).get();
         LoginUserDto response = UserMapper.INSTANCE.entityToLoginUserDto(userEntity);
-        response.setToken(jwtTokenProvider.createToken(authDto.getEmail()));
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authDto.getEmail(), authDto.getPassword()));
+        response.setToken(jwtTokenProvider.createToken(userEntity.getId()));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userEntity.getId(), authDto.getPassword()));
         return CustomSuccessResponse.getSuccessResponse(response);
     }
 }

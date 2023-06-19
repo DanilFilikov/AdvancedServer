@@ -10,6 +10,6 @@ public interface UserService{
   
     public CustomSuccessResponse<List<PublicUserView>> getUsers();
     public CustomSuccessResponse<PublicUserView> getUserInfoById(UUID id);
-    public CustomSuccessResponse<PublicUserView> getUserInfo(String email);
+    public CustomSuccessResponse<PublicUserView> getUserInfo(UUID id);
 
 }
