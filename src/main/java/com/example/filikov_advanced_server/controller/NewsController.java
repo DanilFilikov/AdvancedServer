@@ -23,7 +23,7 @@ public class NewsController {
     private final NewsService newsService;
 
     @PostMapping
-    public ResponseEntity createNews(Authentication authentication, @Valid @RequestBody NewsDto newsDto){
+    public ResponseEntity createNews(@Valid @RequestBody NewsDto newsDto){
     return ResponseEntity.ok(newsService.createNews(newsDto));
     }
 }

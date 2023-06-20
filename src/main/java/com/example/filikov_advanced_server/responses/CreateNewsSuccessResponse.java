@@ -3,12 +3,10 @@ package com.example.filikov_advanced_server.responses;
 import com.example.filikov_advanced_server.entity.NewsEntity;
 import lombok.Data;
 
-import java.util.UUID;
-
 @Data
 public class CreateNewsSuccessResponse {
 
-    public UUID id;
+    public Long id;
     public int statusCode;
     public boolean success;
 
