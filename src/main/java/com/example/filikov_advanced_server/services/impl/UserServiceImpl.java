@@ -53,11 +53,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CustomSuccessResponse<PutUserDtoResponse> replaceUser(PutUserDto putUserDto, UUID id){
-        UserEntity userEntity = userRepo.findById(id).get();
+        UserEntity userEntity = userRepo.findById(id).orElseThrow(() -> new CustomException(ValidationConstants.USER_NOT_FOUND));
         userEntity.setAvatar(putUserDto.getAvatar());
         userEntity.setRole(putUserDto.getRole());
         userEntity.setName(putUserDto.getName());
+        if(userRepo.existsByEmail(putUserDto.getEmail())){
+            throw new CustomException(ValidationConstants.USER_ALREADY_EXISTS);
+        }
         userEntity.setEmail(putUserDto.getEmail());
+        userRepo.save(userEntity);
         return CustomSuccessResponse.getSuccessResponse(UserMapper.INSTANCE.entityToPutUserDtoResponse(userEntity));
     }
 }
