@@ -4,6 +4,7 @@ import com.example.filikov_advanced_server.dto.PublicUserView;
 import com.example.filikov_advanced_server.error.ValidationConstants;
 import com.example.filikov_advanced_server.exception.CustomException;
 import com.example.filikov_advanced_server.mapper.UserMapper;
+import com.example.filikov_advanced_server.responses.BaseSuccessResponse;
 import com.example.filikov_advanced_server.responses.CustomSuccessResponse;
 import com.example.filikov_advanced_server.repository.UserRepo;
 import com.example.filikov_advanced_server.services.UserService;
@@ -39,5 +40,11 @@ public class UserServiceImpl implements UserService {
     public CustomSuccessResponse<PublicUserView> getUserInfo(UUID id){
         PublicUserView response = UserMapper.INSTANCE.entityToPublicUserView(userRepo.findById(id).get());
         return CustomSuccessResponse.getSuccessResponse(response);
+    }
+
+    @Override
+    public BaseSuccessResponse deleteUser(UUID id){
+        userRepo.deleteById(id);
+        return BaseSuccessResponse.getSuccessResponse();
     }
 }
