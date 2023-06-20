@@ -1,6 +1,9 @@
 package com.example.filikov_advanced_server.services.impl;
 
 import com.example.filikov_advanced_server.dto.PublicUserView;
+import com.example.filikov_advanced_server.dto.PutUserDto;
+import com.example.filikov_advanced_server.dto.PutUserDtoResponse;
+import com.example.filikov_advanced_server.entity.UserEntity;
 import com.example.filikov_advanced_server.error.ValidationConstants;
 import com.example.filikov_advanced_server.exception.CustomException;
 import com.example.filikov_advanced_server.mapper.UserMapper;
@@ -46,5 +49,19 @@ public class UserServiceImpl implements UserService {
     public BaseSuccessResponse deleteUser(UUID id){
         userRepo.deleteById(id);
         return BaseSuccessResponse.getSuccessResponse();
+    }
+
+    @Override
+    public CustomSuccessResponse<PutUserDtoResponse> replaceUser(PutUserDto putUserDto, UUID id){
+        UserEntity userEntity = userRepo.findById(id).orElseThrow(() -> new CustomException(ValidationConstants.USER_NOT_FOUND));
+        userEntity.setAvatar(putUserDto.getAvatar());
+        userEntity.setRole(putUserDto.getRole());
+        userEntity.setName(putUserDto.getName());
+        if(userRepo.existsByEmail(putUserDto.getEmail())){
+            throw new CustomException(ValidationConstants.USER_ALREADY_EXISTS);
+        }
+        userEntity.setEmail(putUserDto.getEmail());
+        userRepo.save(userEntity);
+        return CustomSuccessResponse.getSuccessResponse(UserMapper.INSTANCE.entityToPutUserDtoResponse(userEntity));
     }
 }
