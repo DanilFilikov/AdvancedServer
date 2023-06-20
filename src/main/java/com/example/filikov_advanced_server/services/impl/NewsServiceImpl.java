@@ -7,13 +7,10 @@ import com.example.filikov_advanced_server.mapper.NewsMapper;
 import com.example.filikov_advanced_server.repository.NewsRepo;
 import com.example.filikov_advanced_server.repository.TagsRepo;
 import com.example.filikov_advanced_server.responses.CreateNewsSuccessResponse;
-import com.example.filikov_advanced_server.responses.CustomSuccessResponse;
 import com.example.filikov_advanced_server.services.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.HTML;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
