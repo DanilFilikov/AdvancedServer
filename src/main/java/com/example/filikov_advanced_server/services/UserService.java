@@ -1,5 +1,6 @@
 package com.example.filikov_advanced_server.services;
 
+import com.example.filikov_advanced_server.dto.NewsDto;
 import com.example.filikov_advanced_server.dto.PublicUserView;
 import com.example.filikov_advanced_server.dto.PutUserDto;
 import com.example.filikov_advanced_server.dto.PutUserDtoResponse;
