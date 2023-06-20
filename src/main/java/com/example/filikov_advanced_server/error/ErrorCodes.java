@@ -31,7 +31,9 @@ public enum ErrorCodes {
     EMAIL_SIZE_NOT_VALID(3, ValidationConstants.EMAIL_SIZE_NOT_VALID),
     USER_NAME_HAS_TO_BE_PRESENT(43, ValidationConstants.USERNAME_HAS_TO_BE_PRESENT),
     PASSWORD_NOT_VALID(25, ValidationConstants.PASSWORD_NOT_VALID),
-    MAX_UPLOAD_SIZE_EXCEEDED(23, ValidationConstants.MAX_UPLOAD_SIZE_EXCEEDED);
+    MAX_UPLOAD_SIZE_EXCEEDED(23, ValidationConstants.MAX_UPLOAD_SIZE_EXCEEDED),
+    UNAUTHORIZED(7, ValidationConstants.UNAUTHORIZED),
+    USER_EMAIL_NOT_NULL(8, ValidationConstants.USER_EMAIL_NOT_NULL);
 
     private final int code;
     private final String errorText;
