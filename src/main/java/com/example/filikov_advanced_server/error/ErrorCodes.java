@@ -9,6 +9,8 @@ public enum ErrorCodes {
     UNAUTHORIZED(7, ValidationConstants.UNAUTHORIZED),
     USER_EMAIL_NOT_NULL(8, ValidationConstants.USER_EMAIL_NOT_NULL),
     USER_ROLE_NOT_NULL(10, ValidationConstants.USER_ROLE_NOT_NULL),
+    NEWS_DESCRIPTION_SIZE(11, ValidationConstants.NEWS_DESCRIPTION_SIZE_NOT_VALID),
+    NEWS_DESCRIPTION_NOT_NULL(12, ValidationConstants.NEWS_DESCRIPTION_HAS_TO_BE_PRESENT),
     PARAM_PAGE_NOT_NULL(15, "Required Integer parameter 'page' is not present"),
     PARAM_PER_PAGE_NOT_NULL(16, "Required Integer parameter 'perPage' is not present"),
     USER_EMAIL_NOT_VALID(17, ValidationConstants.USER_EMAIL_NOT_VALID),
@@ -33,6 +35,7 @@ public enum ErrorCodes {
     REQUIRED_INT_PARAM_PAGE_IS_NOT_PRESENT(40, ValidationConstants.REQUIRED_INT_PARAM_PAGE_IS_NOT_PRESENT),
     REQUIRED_INT_PARAM_PER_PAGE_IS_NOT_PRESENT(41, ValidationConstants.REQUIRED_INT_PARAM_PER_PAGE_IS_NOT_PRESENT),
     USER_NAME_HAS_TO_BE_PRESENT(43, ValidationConstants.USERNAME_HAS_TO_BE_PRESENT),
+    TAGS_NOT_VALID(44, ValidationConstants.TAGS_NOT_VALID),
     HTTP_MESSAGE_NOT_READABLE_EXCEPTION(47, ValidationConstants.HTTP_MESSAGE_NOT_READABLE_EXCEPTION);
 
     private final int code;

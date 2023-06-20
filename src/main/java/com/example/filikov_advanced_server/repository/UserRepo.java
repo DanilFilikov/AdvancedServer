@@ -16,4 +16,6 @@ public interface UserRepo extends JpaRepository<UserEntity, UUID>{
 
     @Query("select case when count(u) > 0 then true else false end from UserEntity u where u.email = :email")
     Boolean existsByEmail(@Param("email") String email);
+
+
 }
