@@ -13,7 +13,8 @@ public class PutUserDto {
     @NotBlank(message = ValidationConstants.USER_AVATAR_NOT_NULL)
     String avatar;
 
-    @Email(message = ValidationConstants.USER_EMAIL_NOT_VALID)
+    @Email(message = ValidationConstants.USER_EMAIL_NOT_VALID,
+            regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     @NotBlank(message = ValidationConstants.USER_EMAIL_NOT_NULL)
     @Size(min = 3, max = 100, message = ValidationConstants.EMAIL_SIZE_NOT_VALID)
     String email;
