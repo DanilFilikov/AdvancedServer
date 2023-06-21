@@ -90,8 +90,8 @@ public class NewsServiceImpl implements NewsService {
                 .getContent()
                 .stream()
                 .filter(newsEntity -> newsEntity.getUsername().equals(author)
-                        & new HashSet<>(tagsRepo.findAll().stream().map(TagEntity::getTitle).toList()).containsAll(tags)
-                        & newsEntity.getDescription().contains(keywords))
+                        || new HashSet<>(tagsRepo.findAll().stream().map(TagEntity::getTitle).toList()).containsAll(tags)
+                        || newsEntity.getDescription().contains(keywords))
                 .map(newsEntity -> NewsMapper.INSTANCE.newsEntityToGetNewsOutDto(newsEntity)
                         .setUserId(newsEntity.getUser().getId())
                         .setTags(newsEntity.getTags().stream().map(NewsMapper.INSTANCE::tagEntityToTag).toList())).toList();
