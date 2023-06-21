@@ -60,7 +60,9 @@ public class NewsServiceImpl implements NewsService {
                                 .map(NewsMapper.INSTANCE::tagEntityToTag)
                                 .toList()))
                 .toList();
-        return CustomSuccessResponse.getSuccessResponse(PageableResponse.getPageableResponse(list));
+        return CustomSuccessResponse.getSuccessResponse(
+                PageableResponse.getPageableResponse(list)
+                .setNumberOfElements(list.size()));
     }
 
     @Override
@@ -75,6 +77,8 @@ public class NewsServiceImpl implements NewsService {
                         .setUserId(newsEntity.getUser().getId())
                         .setTags(newsEntity.getTags()
                                 .stream().map(NewsMapper.INSTANCE::tagEntityToTag).toList())).toList();
-        return CustomSuccessResponse.getSuccessResponse(PageableResponse.getPageableResponse(getNewsOutDtoList));
+        return CustomSuccessResponse.getSuccessResponse(
+                PageableResponse.getPageableResponse(getNewsOutDtoList)
+                        .setNumberOfElements(getNewsOutDtoList.size()));
     }
 }

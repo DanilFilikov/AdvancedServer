@@ -1,18 +1,19 @@
 package com.example.filikov_advanced_server.responses;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
-import java.util.List;
+import java.util.Collection;
 
 @Data
+@Accessors(chain = true)
 public class PageableResponse <T> {
-    public T content;
-    public int numberOfElements;
+    private Collection <T> content;
+    private int numberOfElements;
 
-    public static <T> PageableResponse<T> getPageableResponse(List<T> content){
+    public static <T> PageableResponse<T> getPageableResponse(Collection <T> content){
         PageableResponse<T> pageableResponse = new PageableResponse<>();
-        pageableResponse.setContent((T) content);
-        pageableResponse.setNumberOfElements(content.size());
+        pageableResponse.setContent(content);
         return pageableResponse;
     }
 }
