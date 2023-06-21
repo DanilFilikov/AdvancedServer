@@ -60,4 +60,18 @@ public class NewsServiceImpl implements NewsService {
                 .toList();
         return CustomSuccessResponse.getSuccessResponse(PageableResponse.getPageableResponse(list));
     }
+
+    @Override
+    public CustomSuccessResponse<PageableResponse<GetNewsOutDto>> getUserNews(int page, int perPage, UUID id){
+        List<GetNewsOutDto> getNewsOutDtoList = newsRepo
+                .findAll(PageRequest.of(page, perPage))
+                .getContent()
+                .stream()
+                .filter(newsEntity -> newsEntity.getUser().equals(userRepo.findById(id).get()))
+                .map(newsEntity -> NewsMapper.INSTANCE.newsEntityToGetNewsOutDto(newsEntity)
+                        .setUserId(newsEntity.getUser().getId())
+                        .setTags(newsEntity.getTags()
+                                .stream().map(NewsMapper.INSTANCE::tagEntityToTag).toList())).toList();
+        return CustomSuccessResponse.getSuccessResponse(PageableResponse.getPageableResponse(getNewsOutDtoList));
+    }
 }
