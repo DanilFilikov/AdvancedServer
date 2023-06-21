@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import java.util.UUID;
 
 public interface NewsService {
-    public CreateNewsSuccessResponse createNews(NewsDto newsDto, Authentication authentication);
+    public CreateNewsSuccessResponse createNews(NewsDto newsDto, UUID id);
     public CustomSuccessResponse<PageableResponse<GetNewsOutDto>> getNews(int page, int perPage);
     public CustomSuccessResponse<PageableResponse<GetNewsOutDto>> getUserNews(int page, int perPage, UUID id);
 }

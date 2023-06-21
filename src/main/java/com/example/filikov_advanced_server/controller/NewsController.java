@@ -28,7 +28,8 @@ public class NewsController {
 
     @PostMapping
     public ResponseEntity createNews(@Valid @RequestBody NewsDto newsDto, Authentication authentication){
-    return ResponseEntity.ok(newsService.createNews(newsDto, authentication));
+        String id = authentication.getName();
+    return ResponseEntity.ok(newsService.createNews(newsDto, UUID.fromString(id)));
     }
 
     @GetMapping

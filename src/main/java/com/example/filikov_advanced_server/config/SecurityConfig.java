@@ -40,7 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers(LOGIN_ENDPOINT, USER_ENDPOINT,NEWS_ENDPOINT).permitAll()
+                .antMatchers(LOGIN_ENDPOINT, USER_ENDPOINT).permitAll()
+                .antMatchers(NEWS_ENDPOINT).authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));

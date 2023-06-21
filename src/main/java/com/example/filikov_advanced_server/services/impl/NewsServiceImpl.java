@@ -34,15 +34,15 @@ public class NewsServiceImpl implements NewsService {
 
 
     @Override
-    public CreateNewsSuccessResponse createNews(NewsDto newsDto, Authentication authentication) {
+    public CreateNewsSuccessResponse createNews(NewsDto newsDto, UUID id) {
         NewsEntity newsEntity = NewsMapper.INSTANCE.newsDtoToEntity(newsDto);
         List<TagEntity> tagEntityList = newsDto.getTags()
                 .stream()
                 .map(tag -> new TagEntity().setTitle(tag))
                 .collect(Collectors.toList());
         newsEntity.setTags(tagEntityList);
-        newsEntity.setUser(userRepo.findById(UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getName())).get());
-        newsEntity.setUsername(userRepo.findById(UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getName())).get().getName());
+        newsEntity.setUser(userRepo.findById(id).get());
+        newsEntity.setUsername(userRepo.findById(id).get().getName());
         tagsRepo.saveAll(tagEntityList);
         newsRepo.save(newsEntity);
         return CreateNewsSuccessResponse.getSuccessResponse(newsEntity);
