@@ -20,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -80,5 +81,21 @@ public class NewsServiceImpl implements NewsService {
         return CustomSuccessResponse.getSuccessResponse(
                 PageableResponse.getPageableResponse(getNewsOutDtoList)
                         .setNumberOfElements(getNewsOutDtoList.size()));
+    }
+
+    @Override
+    public PageableResponse<GetNewsOutDto> findNews(int page, int perPage, String author, String keywords, List<String> tags){
+        List<GetNewsOutDto> getNewsOutDtoList = newsRepo
+                .findAll(PageRequest.of(page, perPage))
+                .getContent()
+                .stream()
+                .filter(newsEntity -> newsEntity.getUsername().equals(author)
+                        & new HashSet<>(tagsRepo.findAll().stream().map(TagEntity::getTitle).toList()).containsAll(tags)
+                        & newsEntity.getDescription().contains(keywords))
+                .map(newsEntity -> NewsMapper.INSTANCE.newsEntityToGetNewsOutDto(newsEntity)
+                        .setUserId(newsEntity.getUser().getId())
+                        .setTags(newsEntity.getTags().stream().map(NewsMapper.INSTANCE::tagEntityToTag).toList())).toList();
+
+        return PageableResponse.getPageableResponse(getNewsOutDtoList).setNumberOfElements(getNewsOutDtoList.size());
     }
 }

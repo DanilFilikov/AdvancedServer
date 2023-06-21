@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @Validated
@@ -40,5 +41,10 @@ public class NewsController {
     @GetMapping("/user/{userId}")
     public ResponseEntity getUserNews(@RequestParam int page, @RequestParam int perPage, @PathVariable UUID userId){
         return ResponseEntity.ok(newsService.getUserNews(page, perPage, userId));
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity findNews(@RequestParam int page, @RequestParam int perPage, @RequestParam(required = false) String author, @RequestParam(required = false) String keyword, @RequestParam(required = false) List<String> tags){
+        return ResponseEntity.ok(newsService.findNews(page, perPage, author, keyword, tags));
     }
 }
