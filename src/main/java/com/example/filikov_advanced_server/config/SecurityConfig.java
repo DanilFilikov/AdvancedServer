@@ -13,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static com.example.filikov_advanced_server.config.EndPoints.LOGIN_ENDPOINT;
+import static com.example.filikov_advanced_server.config.EndPoints.NEWS_ENDPOINT;
 import static com.example.filikov_advanced_server.config.EndPoints.USER_ENDPOINT;
 
 @Configuration
@@ -39,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers(LOGIN_ENDPOINT, USER_ENDPOINT).permitAll()
+                .antMatchers(LOGIN_ENDPOINT, USER_ENDPOINT,NEWS_ENDPOINT).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));

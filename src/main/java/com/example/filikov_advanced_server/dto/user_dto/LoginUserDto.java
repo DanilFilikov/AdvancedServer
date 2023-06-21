@@ -1,4 +1,4 @@
-package com.example.filikov_advanced_server.dto;
+package com.example.filikov_advanced_server.dto.user_dto;
 
 import com.example.filikov_advanced_server.entity.UserEntity;
 import com.example.filikov_advanced_server.mapper.UserMapper;

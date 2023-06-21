@@ -1,28 +1,30 @@
-package com.example.filikov_advanced_server.dto;
+package com.example.filikov_advanced_server.dto.user_dto;
 
 import com.example.filikov_advanced_server.error.ValidationConstants;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-public class PutUserDto {
-    @NotBlank(message = ValidationConstants.USER_AVATAR_NOT_NULL)
-    String avatar;
+public class RegisterUserDto {
 
-    @Email(message = ValidationConstants.USER_EMAIL_NOT_VALID,
-            regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
-    @NotBlank(message = ValidationConstants.USER_EMAIL_NOT_NULL)
+    @NotBlank(message = ValidationConstants.USER_AVATAR_NOT_NULL)
+    private String avatar;
+
+    @Email(message = ValidationConstants.USER_EMAIL_NOT_VALID)
+    @NotBlank(message = ValidationConstants.USER_EMAIL_NOT_VALID)
     @Size(min = 3, max = 100, message = ValidationConstants.EMAIL_SIZE_NOT_VALID)
-    String email;
+    private String email;
 
     @Size(min = 3, max = 25, message = ValidationConstants.USERNAME_SIZE_NOT_VALID)
     @NotBlank(message = ValidationConstants.USERNAME_HAS_TO_BE_PRESENT)
-    String name;
+    private String name;
 
+    private String password;
+
+    @Size(min = 3, max = 25, message = ValidationConstants.ROLE_SIZE_NOT_VALID)
     @NotBlank(message = ValidationConstants.USER_ROLE_NOT_NULL)
-    String role;
+    private String role;
 }

@@ -1,14 +1,11 @@
 package com.example.filikov_advanced_server.mapper;
 
 
-import com.example.filikov_advanced_server.dto.AuthDto;
-import com.example.filikov_advanced_server.dto.LoginUserDto;
-import com.example.filikov_advanced_server.dto.NewsDto;
-import com.example.filikov_advanced_server.dto.PublicUserView;
-import com.example.filikov_advanced_server.dto.PutUserDto;
-import com.example.filikov_advanced_server.dto.PutUserDtoResponse;
-import com.example.filikov_advanced_server.dto.RegisterUserDto;
-import com.example.filikov_advanced_server.entity.NewsEntity;
+import com.example.filikov_advanced_server.dto.user_dto.AuthDto;
+import com.example.filikov_advanced_server.dto.user_dto.LoginUserDto;
+import com.example.filikov_advanced_server.dto.user_dto.PublicUserView;
+import com.example.filikov_advanced_server.dto.user_dto.PutUserDtoResponse;
+import com.example.filikov_advanced_server.dto.user_dto.RegisterUserDto;
 import com.example.filikov_advanced_server.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

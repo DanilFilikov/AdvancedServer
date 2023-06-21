@@ -1,8 +1,8 @@
 package com.example.filikov_advanced_server.services.impl;
 
-import com.example.filikov_advanced_server.dto.AuthDto;
-import com.example.filikov_advanced_server.dto.LoginUserDto;
-import com.example.filikov_advanced_server.dto.RegisterUserDto;
+import com.example.filikov_advanced_server.dto.user_dto.AuthDto;
+import com.example.filikov_advanced_server.dto.user_dto.LoginUserDto;
+import com.example.filikov_advanced_server.dto.user_dto.RegisterUserDto;
 import com.example.filikov_advanced_server.entity.UserEntity;
 import com.example.filikov_advanced_server.error.ValidationConstants;
 import com.example.filikov_advanced_server.exception.CustomException;
