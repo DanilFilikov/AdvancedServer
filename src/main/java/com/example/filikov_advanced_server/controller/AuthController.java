@@ -1,7 +1,7 @@
 package com.example.filikov_advanced_server.controller;
 
-import com.example.filikov_advanced_server.dto.RegisterUserDto;
-import com.example.filikov_advanced_server.dto.AuthDto;
+import com.example.filikov_advanced_server.dto.user_dto.RegisterUserDto;
+import com.example.filikov_advanced_server.dto.user_dto.AuthDto;
 import com.example.filikov_advanced_server.services.AuthService;
 import lombok.AllArgsConstructor;
 

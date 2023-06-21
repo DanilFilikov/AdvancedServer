@@ -1,4 +1,4 @@
-package com.example.filikov_advanced_server.dto;
+package com.example.filikov_advanced_server.dto.user_dto;
 
 import lombok.Data;
 

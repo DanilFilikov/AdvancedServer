@@ -1,4 +1,4 @@
-package com.example.filikov_advanced_server.dto;
+package com.example.filikov_advanced_server.dto.news_dto;
 
 import com.example.filikov_advanced_server.entity.TagEntity;
 import com.example.filikov_advanced_server.error.ValidationConstants;

@@ -1,8 +1,8 @@
 package com.example.filikov_advanced_server.services.impl;
 
-import com.example.filikov_advanced_server.dto.PublicUserView;
-import com.example.filikov_advanced_server.dto.PutUserDto;
-import com.example.filikov_advanced_server.dto.PutUserDtoResponse;
+import com.example.filikov_advanced_server.dto.user_dto.PublicUserView;
+import com.example.filikov_advanced_server.dto.user_dto.PutUserDto;
+import com.example.filikov_advanced_server.dto.user_dto.PutUserDtoResponse;
 import com.example.filikov_advanced_server.entity.UserEntity;
 import com.example.filikov_advanced_server.error.ValidationConstants;
 import com.example.filikov_advanced_server.exception.CustomException;
