@@ -4,6 +4,8 @@ import com.example.filikov_advanced_server.dto.news_dto.GetNewsOutDto;
 import com.example.filikov_advanced_server.dto.news_dto.NewsDto;
 import com.example.filikov_advanced_server.entity.NewsEntity;
 import com.example.filikov_advanced_server.entity.TagEntity;
+import com.example.filikov_advanced_server.error.ValidationConstants;
+import com.example.filikov_advanced_server.exception.CustomException;
 import com.example.filikov_advanced_server.mapper.NewsMapper;
 import com.example.filikov_advanced_server.repository.NewsRepo;
 import com.example.filikov_advanced_server.repository.TagsRepo;
@@ -67,7 +69,8 @@ public class NewsServiceImpl implements NewsService {
                 .findAll(PageRequest.of(page, perPage))
                 .getContent()
                 .stream()
-                .filter(newsEntity -> newsEntity.getUser().equals(userRepo.findById(id).get()))
+                .filter(newsEntity -> newsEntity.getUser().equals(userRepo.findById(id)
+                        .orElseThrow(() -> new CustomException(ValidationConstants.USER_NOT_FOUND))))
                 .map(newsEntity -> NewsMapper.INSTANCE.newsEntityToGetNewsOutDto(newsEntity)
                         .setUserId(newsEntity.getUser().getId())
                         .setTags(newsEntity.getTags()
