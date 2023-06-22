@@ -1,6 +1,7 @@
 package com.example.filikov_advanced_server.entity;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Accessors(chain = true)
 public class NewsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
