@@ -51,4 +51,5 @@ public interface ValidationConstants {
     String USER_ALREADY_EXISTS = "User already exists";
     String UNAUTHORIZED = "UNAUTHORIZED";
     String NEWS_DESCRIPTION_SIZE_NOT_NULL = "news description size must not be null";
+    String NEWS_NOT_FOUND = "news not found";
 }

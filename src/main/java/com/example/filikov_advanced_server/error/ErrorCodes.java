@@ -22,6 +22,7 @@ public enum ErrorCodes {
     MAX_UPLOAD_SIZE_EXCEEDED(23, ValidationConstants.MAX_UPLOAD_SIZE_EXCEEDED),
     USER_AVATAR_NOT_NULL(24, ValidationConstants.USER_AVATAR_NOT_NULL),
     PASSWORD_NOT_VALID(25, ValidationConstants.PASSWORD_NOT_VALID),
+    NEWS_NOT_FOUND(27, ValidationConstants.NEWS_NOT_FOUND),
     ID_MUST_BE_POSITIVE(29, ValidationConstants.ID_MUST_BE_POSITIVE),
     USER_ALREADY_EXISTS(30, ValidationConstants.USER_ALREADY_EXISTS),
     TODO_TEXT_NOT_NULL(31, ValidationConstants.TODO_TEXT_NOT_NULL),
