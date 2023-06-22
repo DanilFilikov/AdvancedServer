@@ -122,4 +122,6 @@ public class NewsServiceImpl implements NewsService {
         newsRepo.delete(newsRepo.findById(id).get());
         return BaseSuccessResponse.getSuccessResponse();
     }
+
+
 }
