@@ -1,15 +1,12 @@
 package com.example.filikov_advanced_server.dto.news_dto;
 
-import com.example.filikov_advanced_server.entity.TagEntity;
 import com.example.filikov_advanced_server.error.ValidationConstants;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 

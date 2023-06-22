@@ -17,11 +17,8 @@ import com.example.filikov_advanced_server.responses.PageableResponse;
 import com.example.filikov_advanced_server.services.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
@@ -116,6 +113,14 @@ public class NewsServiceImpl implements NewsService {
                .setImage(newsDto.getImage());
         tagsRepo.saveAll(newsEntity.getTags());
         newsRepo.save(newsEntity);
+        return BaseSuccessResponse.getSuccessResponse();
+    }
+
+    @Override
+    public BaseSuccessResponse deleteNews(Long id){
+        NewsEntity newsEntity = newsRepo.findById(id).orElseThrow(() -> new CustomException(ValidationConstants.NEWS_NOT_FOUND));
+        tagsRepo.deleteAll(newsEntity.getTags());
+        newsRepo.delete(newsEntity);
         return BaseSuccessResponse.getSuccessResponse();
     }
 }

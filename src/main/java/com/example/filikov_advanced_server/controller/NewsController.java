@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,5 +53,10 @@ public class NewsController {
     @PutMapping("/{id}")
     public ResponseEntity putNews(@PathVariable Long id,@Valid @RequestBody NewsDto newsDto){
         return ResponseEntity.ok(newsService.putNews(id, newsDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteNews(@PathVariable Long id){
+        return ResponseEntity.ok(newsService.deleteNews(id));
     }
 }

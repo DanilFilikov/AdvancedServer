@@ -16,4 +16,5 @@ public interface NewsService {
     public CustomSuccessResponse<PageableResponse<GetNewsOutDto>> getUserNews(int page, int perPage, UUID id);
     public PageableResponse<GetNewsOutDto> findNews(int page, int perPage, String author, String keywords, List<String> tags);
     public BaseSuccessResponse putNews(Long id, NewsDto newsDto);
+    public BaseSuccessResponse deleteNews(Long id);
 }
