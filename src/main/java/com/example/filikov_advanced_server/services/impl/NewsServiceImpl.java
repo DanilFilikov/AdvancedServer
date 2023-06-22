@@ -10,7 +10,6 @@ import com.example.filikov_advanced_server.mapper.NewsMapper;
 import com.example.filikov_advanced_server.repository.NewsRepo;
 import com.example.filikov_advanced_server.repository.TagsRepo;
 import com.example.filikov_advanced_server.repository.UserRepo;
-import com.example.filikov_advanced_server.responses.BaseSuccessResponse;
 import com.example.filikov_advanced_server.responses.CreateNewsSuccessResponse;
 import com.example.filikov_advanced_server.responses.CustomSuccessResponse;
 import com.example.filikov_advanced_server.responses.PageableResponse;
@@ -21,7 +20,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
@@ -91,31 +89,13 @@ public class NewsServiceImpl implements NewsService {
                 .findAll(PageRequest.of(page, perPage))
                 .getContent()
                 .stream()
-                .filter(newsEntity -> author == null || newsEntity.getUsername().equals(author))
-                .filter(newsEntity -> tags == null || new HashSet<>(tagsRepo.findAll().stream()
-                        .map(TagEntity::getTitle)
-                        .toList()).containsAll(tags))
+                .filter(newsEntity -> author == null ||  newsEntity.getUsername().equals(author))
+                .filter(newsEntity -> tags == null || new HashSet<>(tagsRepo.findAll().stream().map(TagEntity::getTitle).toList()).containsAll(tags))
                 .filter(newsEntity -> keywords == null || newsEntity.getDescription().contains(keywords))
                 .map(newsEntity -> NewsMapper.INSTANCE.newsEntityToGetNewsOutDto(newsEntity)
                         .setUserId(newsEntity.getUser().getId())
                         .setTags(newsEntity.getTags().stream().map(NewsMapper.INSTANCE::tagEntityToTag).toList())).toList();
 
         return PageableResponse.getPageableResponse(getNewsOutDtoList).setNumberOfElements(getNewsOutDtoList.size());
-    }
-
-    @Override
-    public BaseSuccessResponse putNews(Long id, NewsDto newsDto){
-        tagsRepo.deleteAll(newsRepo.findById(id).get().getTags());
-        NewsEntity newsEntity = newsRepo.findById(id).orElseThrow(() -> new CustomException(ValidationConstants.USER_NOT_FOUND))
-               .setTags(newsDto.getTags()
-                       .stream()
-                       .map(tag -> new TagEntity().setTitle(tag))
-                       .collect(Collectors.toList()))
-               .setDescription(newsDto.getDescription())
-               .setTitle(newsDto.getTitle())
-               .setImage(newsDto.getImage());
-        tagsRepo.saveAll(newsEntity.getTags());
-        newsRepo.save(newsEntity);
-        return BaseSuccessResponse.getSuccessResponse();
     }
 }
