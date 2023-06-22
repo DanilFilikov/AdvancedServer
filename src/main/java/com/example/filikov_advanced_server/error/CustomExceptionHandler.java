@@ -3,6 +3,7 @@ package com.example.filikov_advanced_server.error;
 import com.example.filikov_advanced_server.exception.CustomException;
 import com.example.filikov_advanced_server.responses.CustomSuccessResponse;
 
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolationException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,5 +50,19 @@ public class CustomExceptionHandler {
                 .map(element -> ErrorCodes.getError(element.getMessage()))
                 .toList();
         return new ResponseEntity<>(CustomSuccessResponse.getErrorResponse(codes, (codes.get(0))), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    public ResponseEntity<CustomSuccessResponse> hande(FileNotFoundException e){
+        List<Integer> codes = new ArrayList<>();
+        codes.add(21);
+        return new ResponseEntity<>(CustomSuccessResponse.getErrorResponse(codes, codes.get(0)), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FileUploadException.class)
+    public ResponseEntity<CustomSuccessResponse> handle(FileUploadException e){
+        List<Integer> codes = new ArrayList<>();
+        codes.add(0);
+        return new ResponseEntity<>(CustomSuccessResponse.getErrorResponse(codes, codes.get(0)), HttpStatus.BAD_REQUEST);
     }
 }

@@ -118,8 +118,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public BaseSuccessResponse deleteNews(Long id){
-        tagsRepo.deleteAll(newsRepo.findById(id).orElseThrow(() -> new CustomException(ValidationConstants.NEWS_NOT_FOUND)).getTags());
-        newsRepo.delete(newsRepo.findById(id).get());
+        NewsEntity newsEntity = newsRepo.findById(id).orElseThrow(() -> new CustomException(ValidationConstants.NEWS_NOT_FOUND));
+        tagsRepo.deleteAll(newsEntity.getTags());
+        newsRepo.delete(newsEntity);
         return BaseSuccessResponse.getSuccessResponse();
     }
 
