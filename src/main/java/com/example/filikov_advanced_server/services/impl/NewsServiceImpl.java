@@ -14,6 +14,7 @@ import com.example.filikov_advanced_server.responses.BaseSuccessResponse;
 import com.example.filikov_advanced_server.responses.CreateNewsSuccessResponse;
 import com.example.filikov_advanced_server.responses.CustomSuccessResponse;
 import com.example.filikov_advanced_server.responses.PageableResponse;
+import com.example.filikov_advanced_server.services.FileService;
 import com.example.filikov_advanced_server.services.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -35,16 +36,21 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public CreateNewsSuccessResponse createNews(NewsDto newsDto, UUID id) {
+        if(FileServiceImpl.filePath == null){
+            throw new CustomException(ValidationConstants.NEWS_IMAGE_HAS_TO_BE_PRESENT);
+        }
         NewsEntity newsEntity = NewsMapper.INSTANCE.newsDtoToEntity(newsDto);
         List<TagEntity> tagEntityList = newsDto.getTags()
                 .stream()
                 .map(tag -> new TagEntity().setTitle(tag))
                 .collect(Collectors.toList());
+        newsEntity.setImage(FileServiceImpl.filePath);
         newsEntity.setTags(tagEntityList);
         newsEntity.setUser(userRepo.findById(id).get());
         newsEntity.setUsername(userRepo.findById(id).get().getName());
         tagsRepo.saveAll(tagEntityList);
         newsRepo.save(newsEntity);
+        FileServiceImpl.filePath = null;
         return CreateNewsSuccessResponse.getSuccessResponse(newsEntity);
     }
 
@@ -102,6 +108,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public BaseSuccessResponse putNews(Long id, NewsDto newsDto){
+        if(FileServiceImpl.filePath == null){
+            throw new CustomException(ValidationConstants.NEWS_IMAGE_HAS_TO_BE_PRESENT);
+        }
         tagsRepo.deleteAll(newsRepo.findById(id).get().getTags());
         NewsEntity newsEntity = newsRepo.findById(id).orElseThrow(() -> new CustomException(ValidationConstants.USER_NOT_FOUND))
                .setTags(newsDto.getTags()
@@ -110,7 +119,8 @@ public class NewsServiceImpl implements NewsService {
                        .collect(Collectors.toList()))
                .setDescription(newsDto.getDescription())
                .setTitle(newsDto.getTitle())
-               .setImage(newsDto.getImage());
+               .setImage(FileServiceImpl.filePath);
+        FileServiceImpl.filePath = null;
         tagsRepo.saveAll(newsEntity.getTags());
         newsRepo.save(newsEntity);
         return BaseSuccessResponse.getSuccessResponse();
@@ -123,6 +133,4 @@ public class NewsServiceImpl implements NewsService {
         newsRepo.delete(newsEntity);
         return BaseSuccessResponse.getSuccessResponse();
     }
-
-
 }

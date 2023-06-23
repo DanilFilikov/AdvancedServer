@@ -19,12 +19,14 @@ public class FileServiceImpl implements FileService {
 
     final String SAVE_LOCATION = "/home/dunice/IdeaProjects/AdvancedServer/temp/";
     private Path path = Paths.get("temp/").toAbsolutePath();
+    static String filePath;
 
     @Override
     public CustomSuccessResponse<String> uploadFile(MultipartFile file) {
         try {
             File pathFile = new File(SAVE_LOCATION + file.getOriginalFilename());
             file.transferTo(pathFile);
+            filePath = SAVE_LOCATION + file.getOriginalFilename();
             return CustomSuccessResponse.getSuccessResponse(SAVE_LOCATION + pathFile.getName());
         } catch (IOException e){
             throw new CustomException(ValidationConstants.UNKNOWN);
@@ -40,5 +42,4 @@ public class FileServiceImpl implements FileService {
             throw new CustomException(ValidationConstants.EXCEPTION_HANDLER_NOT_PROVIDED);
         }
     }
-
 }

@@ -31,7 +31,12 @@ public class AuthServiceImpl implements AuthService {
         if (userRepo.existsByEmail(userDto.getEmail())) {
             throw new CustomException(ValidationConstants.USER_ALREADY_EXISTS);
         }
+        if(FileServiceImpl.filePath == null){
+            throw new CustomException(ValidationConstants.NEWS_IMAGE_HAS_TO_BE_PRESENT);
+        }
         UserEntity userEntity = UserMapper.INSTANCE.registerDtoToEntity(userDto);
+        userEntity.setAvatar(FileServiceImpl.filePath);
+        FileServiceImpl.filePath = null;
         userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
         userRepo.save(userEntity);
         LoginUserDto response = UserMapper.INSTANCE.entityToLoginUserDto(userEntity);
