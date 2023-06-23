@@ -14,7 +14,6 @@ import com.example.filikov_advanced_server.responses.BaseSuccessResponse;
 import com.example.filikov_advanced_server.responses.CreateNewsSuccessResponse;
 import com.example.filikov_advanced_server.responses.CustomSuccessResponse;
 import com.example.filikov_advanced_server.responses.PageableResponse;
-import com.example.filikov_advanced_server.services.FileService;
 import com.example.filikov_advanced_server.services.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
