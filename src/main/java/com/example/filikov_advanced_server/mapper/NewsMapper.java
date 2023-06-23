@@ -16,7 +16,6 @@ public interface NewsMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "description", source = "description")
-    @Mapping(target = "image", source = "image")
     @Mapping(target = "title", source = "title")
     @Mapping(target = "tags", ignore = true)
     NewsEntity newsDtoToEntity(NewsDto newsDto);
@@ -24,7 +23,6 @@ public interface NewsMapper {
     @Mapping(target = "userId", ignore = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "description", source = "description")
-    @Mapping(target = "image", source = "image")
     @Mapping(target = "title", source = "title")
     GetNewsOutDto newsEntityToGetNewsOutDto(NewsEntity newsEntity);
 
