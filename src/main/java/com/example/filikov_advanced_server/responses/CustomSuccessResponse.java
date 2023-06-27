@@ -9,7 +9,7 @@ public class CustomSuccessResponse<T> {
 
     private T data;
     private int statusCode;
-    private boolean success;
+    private Boolean success;
     private Integer code;
     private List<Integer> codes;
 

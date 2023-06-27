@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class BaseSuccessResponse {
     private int statusCode;
-    private boolean success;
+    private Boolean success;
 
     public static BaseSuccessResponse getSuccessResponse() {
         BaseSuccessResponse baseSuccessResponse = new BaseSuccessResponse();
