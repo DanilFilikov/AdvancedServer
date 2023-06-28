@@ -1,6 +1,7 @@
 package com.example.filikov_advanced_server.entity;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "users")
+@Accessors(chain = true)
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

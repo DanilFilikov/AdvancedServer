@@ -19,7 +19,7 @@ public class FileServiceImpl implements FileService {
 
     final String SAVE_LOCATION = "/home/dunice/IdeaProjects/AdvancedServer/temp/";
     private Path path = Paths.get("temp/").toAbsolutePath();
-    static String filePath;
+    public static String filePath;
 
     @Override
     public CustomSuccessResponse<String> uploadFile(MultipartFile file) {
