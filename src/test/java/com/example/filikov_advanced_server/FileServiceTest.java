@@ -1,6 +1,7 @@
 package com.example.filikov_advanced_server;
 
-import static com.example.filikov_advanced_server.Methods.file;
+import static com.example.filikov_advanced_server.UtilMethods.defaultStatusCode;
+import static com.example.filikov_advanced_server.UtilMethods.file;
 import com.example.filikov_advanced_server.responses.CustomSuccessResponse;
 import com.example.filikov_advanced_server.services.FileService;
 import com.example.filikov_advanced_server.services.impl.FileServiceImpl;
@@ -18,7 +19,7 @@ public class FileServiceTest {
         CustomSuccessResponse<String> response = fileService.uploadFile(file);
 
         Assertions.assertNotNull(response.getData());
-        Assertions.assertEquals(response.getStatusCode(), 1);
+        Assertions.assertEquals(response.getStatusCode(), defaultStatusCode);
         Assertions.assertTrue(response.getSuccess());
     }
 

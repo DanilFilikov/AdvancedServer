@@ -10,28 +10,30 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.filikov_advanced_server.Methods.getPutUserDto;
-import static com.example.filikov_advanced_server.Methods.user;
+import static com.example.filikov_advanced_server.UtilMethods.defaultStatusCode;
+import static com.example.filikov_advanced_server.UtilMethods.getPutUserDto;
+import static com.example.filikov_advanced_server.UtilMethods.user;
+import static com.example.filikov_advanced_server.UtilMethods.wantedNumberOfInvocation;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
 
     @MockBean
-    UserRepo userRepo;
+    private UserRepo userRepo;
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Test
     public void getUserTest(){
@@ -40,10 +42,10 @@ public class UserServiceTest {
 
         CustomSuccessResponse<List<PublicUserView>> response = userService.getUsers();
 
-        verify(userRepo, times(1)).findAll();
+        verify(userRepo, times(wantedNumberOfInvocation)).findAll();
         Assertions.assertNotNull(response.getData());
         Assertions.assertTrue(response.getSuccess());
-        Assertions.assertEquals(response.getStatusCode(), 1);
+        Assertions.assertEquals(response.getStatusCode(), defaultStatusCode);
 
     }
 
@@ -53,10 +55,10 @@ public class UserServiceTest {
 
         CustomSuccessResponse<PublicUserView> response = userService.getUserInfoById(user.getId());
 
-        verify(userRepo, times(1)).findById(ArgumentMatchers.any());
+        verify(userRepo, times(wantedNumberOfInvocation)).findById(ArgumentMatchers.any());
         Assertions.assertNotNull(response.getData());
         Assertions.assertTrue(response.getSuccess());
-        Assertions.assertEquals(response.getStatusCode(), 1);
+        Assertions.assertEquals(response.getStatusCode(), defaultStatusCode);
     }
 
     @Test
@@ -65,18 +67,19 @@ public class UserServiceTest {
 
         CustomSuccessResponse<PublicUserView> response = userService.getUserInfoById(user.getId());
 
-        verify(userRepo, times(1)).findById(ArgumentMatchers.any());
+        verify(userRepo, times(wantedNumberOfInvocation)).findById(ArgumentMatchers.any());
         Assertions.assertNotNull(response.getData());
         Assertions.assertTrue(response.getSuccess());
-        Assertions.assertEquals(response.getStatusCode(), 1);
+        Assertions.assertEquals(response.getStatusCode(), defaultStatusCode);
     }
 
     @Test
     public void deleteUserTest(){
         BaseSuccessResponse response = userService.deleteUser(user.getId());
 
+        verify(userRepo, times(wantedNumberOfInvocation)).deleteById(ArgumentMatchers.any());
         Assertions.assertTrue(response.getSuccess());
-        Assertions.assertEquals(response.getStatusCode(), 1);
+        Assertions.assertEquals(response.getStatusCode(), defaultStatusCode);
     }
 
     @Test
@@ -86,9 +89,9 @@ public class UserServiceTest {
 
         CustomSuccessResponse<PutUserDtoResponse> response = userService.replaceUser(getPutUserDto(), user.getId());
 
-        verify(userRepo, times(1)).save(user);
+        verify(userRepo, times(wantedNumberOfInvocation)).save(user);
         Assertions.assertNotNull(response.getData());
         Assertions.assertTrue(response.getSuccess());
-        Assertions.assertEquals(response.getStatusCode(), 1);
+        Assertions.assertEquals(response.getStatusCode(), defaultStatusCode);
     }
 }

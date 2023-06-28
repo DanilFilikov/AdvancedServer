@@ -8,7 +8,7 @@ import com.example.filikov_advanced_server.entity.NewsEntity;
 import com.example.filikov_advanced_server.entity.TagEntity;
 import com.example.filikov_advanced_server.entity.UserEntity;
 import com.example.filikov_advanced_server.mapper.NewsMapper;
-import org.hibernate.type.descriptor.sql.LongVarcharTypeDescriptor;
+import com.example.filikov_advanced_server.services.impl.FileServiceImpl;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +17,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Methods {
+public class UtilMethods {
 
     public static MultipartFile file = new MockMultipartFile("test.txt",
             "test.txt",
@@ -39,6 +39,14 @@ public class Methods {
             .setUser(user)
             .setUsername(user.getName())
             .setTags(Stream.of(tag).map(e -> new TagEntity().setTitle(getNewsDto().getTitle())).collect(Collectors.toList()));
+
+    public static String filePath = "/home/dunice/IdeaProjects/AdvancedServer/temp/Anime.jpg";
+    public static String defaultEmail = "56fe46a@gmail.ru";
+    public static String defaultPassword = "123123";
+    public static int defaultStatusCode = 1;
+    public static int page = 0;
+    public static int perPage = 100;
+    public static int wantedNumberOfInvocation = 1;
 
     public static RegisterUserDto getRegisterUserDto(){
         RegisterUserDto registerUserDto = new RegisterUserDto();
